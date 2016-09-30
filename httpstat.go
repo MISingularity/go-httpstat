@@ -47,6 +47,7 @@ func (r *Result) Total(t time.Time) time.Duration {
 // WithHTTPStat is a wrapper of httptrace.WithClientTrace. It records the
 // time of each httptrace hooks.
 func WithHTTPStat(ctx context.Context, r *Result) context.Context {
+	r.t0 = time.Now()
 	return httptrace.WithClientTrace(ctx, &httptrace.ClientTrace{
 		GetConn: func(hostPort string) {
 			_, port, err := net.SplitHostPort(hostPort)
